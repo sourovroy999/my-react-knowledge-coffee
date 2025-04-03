@@ -4,13 +4,13 @@ import { FaBookmark } from 'react-icons/fa';
 
 
 
-const Blog = ({blogInside, clickToAddBookMarks}) => {
+const Blog = ({blogInside, clickToAddBookMarks, handleMarkARead}) => {
     const{title,cover,author, author_img,posted_date, reading_time, hashtags}= blogInside;
     return (
-        <div className='mb-20'>
+        <div className='mb-20 space-y-3'>
             <img className='mb-8' src={cover} alt={`cover picture of the title ${title}`} />
 
-            <div className='flex justify-between mb-4'>
+            <div className='flex justify-between mb-4 '>
                 <div className='flex gap-6'>
                     <img className='w-14 h-14 object-cover rounded-full ' src={author_img} alt="" />
                     <div>
@@ -20,7 +20,7 @@ const Blog = ({blogInside, clickToAddBookMarks}) => {
                 </div>
                 <div className='flex items-center mb-8'>
                     <span>{reading_time} min read</span>
-                    <button onClick={clickToAddBookMarks} className='ml-4 text-2xl text-green-600  '><FaBookmark/></button>
+                    <button onClick={()=>clickToAddBookMarks(blogInside)} className='ml-4 text-2xl text-green-600  '><FaBookmark/></button>
                 </div>
             </div>
 
@@ -30,6 +30,9 @@ const Blog = ({blogInside, clickToAddBookMarks}) => {
                     hashtags.map((hash, idx) => <span key={idx}><a href=''> {hash}</a></span>)
                 }
             </p>
+            <button className='text-purple-800 font bold underline'
+            onClick={()=>handleMarkARead(reading_time)}
+            >Mark as read</button>
 
 
         </div>
@@ -37,7 +40,9 @@ const Blog = ({blogInside, clickToAddBookMarks}) => {
 };
 
 Blog.propTypes={
-    blog: PropTypes.object.isRequired
+    blog: PropTypes.object.isRequired,
+    clickToAddBookMarks: PropTypes.func,
+    handleMarkARead: PropTypes.func
 }
 
 export default Blog;
